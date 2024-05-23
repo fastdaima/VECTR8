@@ -83,7 +83,7 @@ const Preview = ({ previewData, filePath, fileSize }) => {
       const data = { file_path: filePath, selected_keys: selectedKeys };
       console.log('Sending data:', data);
 
-      const response = await fetch('http://10.0.0.252:4000/preview_document', {
+      const response = await fetch('http://127.0.0.1:4000/preview_document', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)

@@ -7,7 +7,7 @@ const Query = () => {
 
   const handleQuery = async () => {
     try {
-      const response = await fetch('http://10.0.0.252:4000/query', {
+      const response = await fetch('http://127.0.0.1:4000/query', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query_text: queryText, similarity_metric: similarityMetric })

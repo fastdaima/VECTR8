@@ -28,7 +28,7 @@ const Embed = () => {
 
   const fetchAvailableDatabases = async () => {
     try {
-      const response = await fetch('http://10.0.0.252:4000/list_vector_dbs');
+      const response = await fetch('http://127.0.0.1:4000/list_vector_dbs');
       if (response.ok) {
         const data = await response.json();
         setDbList(data);
@@ -42,7 +42,7 @@ const Embed = () => {
 
   const checkVectorDb = async () => {
     try {
-      const response = await fetch('http://10.0.0.252:4000/check_vector_db');
+      const response = await fetch('http://127.0.0.1:4000/check_vector_db');
       if (response.ok) {
         setIsVectorDbExisting(true);
       } else {
@@ -61,7 +61,7 @@ const Embed = () => {
     console.log("selected_keys:", selectedKeys);
     console.log("file_path:", filePath);
     try {
-      const response = await fetch('http://10.0.0.252:4000/create_vector_database', {
+      const response = await fetch('http://127.0.0.1:4000/create_vector_database', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ file_path: filePath, selected_keys: selectedKeys }),
@@ -78,7 +78,7 @@ const Embed = () => {
 
   const backupDatabase = async () => {
     try {
-      const response = await fetch('http://10.0.0.252:4000/backup_db', { method: 'POST' });
+      const response = await fetch('http://127.0.0.1:4000/backup_db', { method: 'POST' });
       if (response.ok) {
         alert('Database backup created successfully');
       } else {
@@ -92,7 +92,7 @@ const Embed = () => {
   const deleteDatabase = async () => {
     if (window.confirm('Are you sure you want to delete the vector database?')) {
       try {
-        const response = await fetch('http://10.0.0.252:4000/delete_db', { method: 'POST' });
+        const response = await fetch('http://127.0.0.1:4000/delete_db', { method: 'POST' });
         if (response.ok) {
           alert('Database deleted successfully!');
           setIsVectorDbExisting(false);
@@ -108,7 +108,7 @@ const Embed = () => {
 
   const getDbStats = async () => {
     try {
-      const response = await fetch('http://10.0.0.252:4000/db_stats');
+      const response = await fetch('http://127.0.0.1:4000/db_stats');
       if (response.ok) {
         const data = await response.json();
         setTotalDocuments(data.total_documents);

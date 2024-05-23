@@ -74,12 +74,12 @@ const Upload = ({ onPreviewData }) => {
     const fetchDatasets = async () => {
         setLoading(true);
         try {
-            const response = await fetch('http://10.0.0.252:4000/list_uploads');
+            const response = await fetch('http://127.0.0.1:4000/list_uploads');
             const newDatasets = await response.json();
             if (response.ok) {
                 const newChecksum = md5(JSON.stringify(newDatasets));
                 const cachedChecksum = localStorage.getItem('datasetsChecksum');
-                
+
                 if (newChecksum !== cachedChecksum) {
                     setDatasets(newDatasets);
                     localStorage.setItem('datasetsChecksum', newChecksum);
@@ -102,7 +102,7 @@ const Upload = ({ onPreviewData }) => {
         formData.append('file', selectedFile);
         setLoading(true);
         try {
-            const response = await fetch('http://10.0.0.252:4000/upload_file', {
+            const response = await fetch('http://127.0.0.1:4000/upload_file', {
                 method: 'POST',
                 body: formData
             });
@@ -126,7 +126,7 @@ const Upload = ({ onPreviewData }) => {
     const fetchPreviewData = async (filePath) => {
         console.log("Fetching preview data for file:", filePath);
         try {
-            const response = await fetch('http://10.0.0.252:4000/preview_file', {
+            const response = await fetch('http://127.0.0.1:4000/preview_file', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ file_path: filePath })
@@ -160,14 +160,14 @@ const Upload = ({ onPreviewData }) => {
         formData.append('file', selectedFile);
         setDataWizardLoading(true);
         try {
-            const response = await fetch('http://10.0.0.252:4000/upload_file', {
+            const response = await fetch('http://127.0.0.1:4000/upload_file', {
                 method: 'POST',
                 body: formData
             });
             const result = await response.json();
             if (response.ok) {
                 setWizardFileInfo(result.file_path);
-                const chatResponse = await fetch('http://10.0.0.252:4000/chatbot_format', {
+                const chatResponse = await fetch('http://127.0.0.1:4000/chatbot_format', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ file_path: result.file_path })
@@ -291,7 +291,7 @@ const Upload = ({ onPreviewData }) => {
         setChatInput("");
 
         try {
-            const response = await fetch('http://10.0.0.252:4000/chatbot_format', {
+            const response = await fetch('http://127.0.0.1:4000/chatbot_format', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query: chatInput })
@@ -370,7 +370,7 @@ const Upload = ({ onPreviewData }) => {
                         {datasets.map((dataset, index) => {
                             const fileExtension = dataset.name.split('.').pop().toLowerCase();
                             return (
-                                <li 
+                                <li
                                     className={`datasetListItem ${fileInfo != null && dataset.name === fileInfo ? 'selected' : ''}`}
                                     key={index}
                                     onClick={() => handleDatasetClick(dataset.name)}
